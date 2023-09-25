@@ -1,0 +1,316 @@
+1) git clone
+2)Открыть проект 
+3)npm ci - установка пакетов 
+git stash возвращает репозиторий к состоянию последнего коммита
+
+
+make lint-fix
+git status
+git add index.js
+git commit -m 'add step1'
+git push
+
+
+Наброски
+l3-data-analizung-v1-soft4se
+
+
+
+step 1
+const showInfo = (content) => {
+
+const data = content.split('\n'); //получааем строку иделим ее по переносу строки \n, чтобы подсчитать колличество рядов. Сохраняем в data
+const rows = data.slice(1,data.length - 1); // обрязаем ряды, удаляя ряд с заголовками и последний ряд, с пробелом.
+console.log(`Count: ${rows.length}`); //выводим кол-во записей
+
+}
+export default showInfo;
+
+step 1
+const data = string.split('\n');
+const rows = data.slice(1,data.length - 1).map((row) => row.split(','));
+console.log(`Count: ${rows.length}`);
+
+
+step 2
+
+const cities = rows.map((row) => row[7]);
+const uniques = _.uniq(cities);
+console.log(`Cities: ${uniques.sort().join(', ')}`);
+
+
+
+step 1
+const showInfo = (content) => {
+    const data = content.trim().split('\n').slice(1).map((line) => line.split(','));
+    console.log(`Count: ${data.length}`);
+  };
+export default showInfo;
+
+
+    const lines = content.split('\n'); //step 1
+    const recordCount = lines.length - 2; // вычитаем заголовок и пустую строку
+    console.log(`Count: ${recordCount}`);
+
+
+
+
+//step 1
+const showInfo = (content) => {
+    const lines = content.split('\n'); //step 1
+    const recordCount = lines.length - 2; // вычитаем заголовок и пустую строку
+    console.log(`Count: ${recordCount}`);
+//step 1
+
+
+
+// console.log(content);
+
+
+//step 2
+    const cities = []; // step 2
+    for (let i = 1; i < lines.length - 1; i++) {
+      const values = lines[i].split(',');
+      const city = values[7];
+      if (!cities.includes(city)) {
+        cities.push(city);
+      }
+    }
+    const citiesList = cities.sort().join(', ');
+    console.log(`Cities: ${citiesList}`);
+
+    const mtemperature = []; // step 3
+    for (let i = 1; i < lines.length - 1; i++) {
+        const mtemp = lines[i].split(',');
+        const maxtemp = mtemp[3];
+        mtemperature.push(maxtemp);
+    }
+    let max = mtemperature[0];
+     for(let num of mtemperature) {
+        if (max < num)
+        {
+            max = num;
+
+        }
+     }
+
+
+//step 2
+
+//step 3 
+    const mintemperature = []; // step 3
+     for (let i = 1; i < lines.length - 1; i++) {
+         const temp = lines[i].split(',');
+         const mintemp = temp[3];
+         mintemperature.push(mintemp);
+     }
+     let min = mintemperature[0];
+      for(let num of mintemperature) {
+         if (min > num)
+         {
+             min = num;
+ 
+         }
+      }
+
+    console.log(`Humidity: Min: ${min}, Max: ${max}`);
+
+//step 3
+  };
+export default showInfo;
+
+
+l3-data-analizung-v1-soft4se
+
+import _ from 'lodash';
+
+const showInfo = (content) => {
+  const data = content.trim().split('\n').slice(1).map((line) => line.split(','));
+  console.log(`Count: ${data.length}`); // step1
+  //   console.log(data);
+
+  // step 2
+  const cities = _.uniq((data.map((city) => { if (data[1] !== '' || data[2] !== '') { return city[7]; } }).sort()));
+  //  const cities = _.uniq((data.map((city => {((data[1] !== '') || (data[2] !== '')) city[7])}).sort()));
+  console.log(`Cities: ${cities.join(', ')}`);
+  // step 2
+
+  // step 3
+  const humimax = _.max(data.map((hmax) => Number(hmax[3])));
+  const humimin = _.min(data.map((hmin) => Number(hmin[3])));
+  console.log(`Humidity: Min: ${humimin}, Max: ${humimax}`);
+  // step 3
+
+//const humidi = data.map((row) => Number(row[3]));
+//const humin = Math.min(...humidi);
+//const humax = Math.max(...humidi);
+ // console.log(`Humidity: Min: ${humimin}, Max: ${humimax}`);
+
+  // step 4
+  //  const maxdaytemp = _.max(data.map((maxtemp) => Number(maxtemp[1])));
+  //  const hotday = data.find(maxdaytemp, data[0]);
+  //  console.log(`Humidity: ${hotday}, Max: ${maxdaytemp}`);
+  
+  const maxdaytemp = _.max(data.filter((maxtempdate) => maxtempdate[1]));
+  // const hotday = data.find(maxdaytemp, data[0]);
+  console.log(`HottestDay: ${maxdaytemp[0]} ${maxdaytemp[7]}`);
+
+  //   const humimin = _.min(data.map((hmin) => Number(hmin[3])));
+  //   console.log(`Humidity: Min: ${humimin}, Max: ${humimax}`);
+  // step 3
+
+
+
+
+
+
+
+
+  // step 5
+
+  // Выведите самый жаркий город, основываясь на средней температуре в городе за дни указанные в файле. Средняя температура считается относительно значения `Max Temperature`.
+
+  // С технической точки зрения, вам нужно посчитать среднюю температуру по каждому городу за указанную дату. Затем нужно определить в каком городе эта температура выше.
+
+  // ```bash
+  // bin/weather.js __fixtures__/weather1.csv
+  // Count: 20
+  // Cities: Chicago, Denver, Los Angeles, Miami, Seattle
+  // Humidity: Min: 58, Max: 80
+  // HottestDay: 2023-04-18 Los Angeles
+  // HottestCity: Miami
+};
+export default showInfo;
+
+
+
+
+import _ from 'lodash';
+
+const showInfo = (content) => {
+  // step 1
+  const data = content.trim().split('\n').slice(1).map((line) => line.split(','));
+  console.log(`Count: ${data.length}`);
+
+  // step 2
+  const cities = _.uniq((data.map((city) => { if (data[1] !== '' || data[2] !== '') { return city[7]; } }).sort()));
+  console.log(`Cities: ${cities.join(', ')}`);
+
+  // step 3
+  const humimax = _.max(data.map((hmax) => Number(hmax[3])));
+  const humimin = _.min(data.map((hmin) => Number(hmin[3])));
+  console.log(`Humidity: Min: ${humimin}, Max: ${humimax}`);
+  
+  // step 4
+  const maxdaytemp = _.max(data.filter((maxtempdate) => maxtempdate[1]));
+  console.log(`HottestDay: ${maxdaytemp[0]} ${maxdaytemp[7]}`);
+};
+export default showInfo;
+
+
+
+
+
+
+const _ = require('lodash');
+
+// Шаг 5: Вывод самого жаркого города основываясь на средней температуре
+function step5(content) {
+  // Разделяем данные на строки и игнорируем заголовок
+  const lines = content.split('\n').slice(1);
+
+  // Создаем объект для хранения средних температур по городам
+  const cityAverages = {};
+
+  // Обходим каждую строку данных
+  _.forEach(lines, (line) => {
+    const parts = line.split(',');
+    const city = parts[1];
+    const maxTemp = parseInt(parts[3]);
+
+    // Используем _.update для удобного обновления объекта
+    _.update(cityAverages, [city, 'temps'], (temps) => (temps || []).concat(maxTemp));
+  });
+
+  // Находим город с самой высокой средней температурой с использованием lodash
+  const hottestCity = _.maxBy(_.keys(cityAverages), (city) => {
+    const temps = cityAverages[city].temps;
+    return _.mean(temps);
+  });
+
+  console.log(`HottestCity: ${hottestCity}`);
+}
+
+
+ const cityT = {};
+  data.slice(1).forEach((row) => {
+    const city = row[7];
+    const temperature = parseFloat(row[2]);
+
+    if (!Number.isNaN(temperature)) {
+      if (!(city in cityT)) {
+        cityT[city] = [];
+      }
+      cityT[city].push(temperature);
+    }
+  });
+
+  let hottestCityName = '';
+  let hottestCityTemperature = -Infinity;
+
+  Object.keys(cityT).forEach((city) => {
+    const averageTemp = cityT[city].reduce((sum, temp) => sum + temp, 0) / cityT[city].length;
+
+    if (averageTemp > hottestCityTemperature) {
+      hottestCityTemperature = averageTemp;
+      hottestCityName = city;
+    }
+  });
+
+  console.log(`HottestCity: ${hottestCityName}`);
+};
+
+
+
+// Задача 5: Найти самый жаркий город
+
+// Создаем пустой объект для хранения температур по городам
+const cityTemperatures = {};
+
+// Проходим по каждой строке данных, начиная с индекса 1, чтобы пропустить заголовок
+data.slice(1).forEach((row) => {
+  // Извлекаем название города из третьего столбца (индекс 1)
+  const city = row[7];
+  // Преобразуем строку с температурой в число с плавающей точкой
+  const temperature = parseFloat(row[1]);
+
+  // Проверяем, что значение температуры является числом
+  if (!Number.isNaN(temperature)) {
+    // Если город ещё не был добавлен в объект cityTemperatures, создаем пустой массив для него
+    if (!(city in cityTemperatures)) {
+      cityTemperatures[city] = [];
+    }
+    // Добавляем температуру в массив для данного города
+    cityTemperatures[city].push(temperature);
+  }
+});
+
+// Инициализируем переменные для хранения имени самого жаркого города и его температуры
+let hottestCityName = '';
+let hottestCityTemperature = -Infinity;
+
+// Проходим по всем городам в объекте cityTemperatures
+Object.keys(cityTemperatures).forEach((city) => {
+  // Вычисляем среднюю температуру для данного города
+  const averageTemperature = cityTemperatures[city].reduce((sum, temp) => sum + temp, 0) / cityTemperatures[city].length;
+
+  // Если средняя температура для данного города выше самой высокой найденной температуры, обновляем данные о самом жарком городе
+  if (averageTemperature > hottestCityTemperature) {
+    hottestCityTemperature = averageTemperature;
+    hottestCityName = city;
+  }
+});
+
+// Выводим имя самого жаркого города в консоль
+console.log(`HottestCity: ${hottestCityName}`);
+
